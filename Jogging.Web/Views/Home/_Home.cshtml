@@ -1,0 +1,90 @@
+﻿<div style="display: none" data-bind="with: home, visible: home">
+    <h2>Jogging ASP.NET Application</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-7">
+            <pre>
+                Write an application that tracks jogging times of users
+                - User must be able to create an account and log in
+                - Implement at least two roles with different permission levels
+                (ie: a regular user would only be able to CRUD on his owned records,
+                a user manager would be able to CRUD users,
+                an admin would be able to CRUD on all records and users, etc.)
+                - When logged in, user can see, edit and delete his times he entered
+                - Each time entry when entered has a date, distance, and time
+                - When displayed, each time entry has an average speed
+                - Filter by dates from-to
+                - Report on average speed & distance per week
+                - REST API.
+            </pre>
+        </div>
+
+        <!-- ko if: isAuthenticated -->
+        <div class="col-md-5">
+            Hello, <i data-bind="text: app.dataModel.user().name"></i> !
+            <br/>
+            <a href="javascript:void()" data-bind="click: userLogout">log out</a>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: (!isAuthenticated() && isRegisterForm()) -->
+        <div class="col-md-5" data-bind="with: register">
+            <h4>Register new user</h4>
+            <hr />
+            <form class="form-horizontal" role="form" method="PUT">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="rname">Name</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="rname" type="text" required data-bind="value: name"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="remail">Email</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="remail" type="email" required data-bind="value: email" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="rpassword">Password</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="rpassword" type="password" required data-bind="value: password" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Register" class="btn btn-default"/>
+                        <a href="javascript:void()" data-bind="click: $parent.showLoginForm">or Log in</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: (!isAuthenticated() && !isRegisterForm()) -->
+        <div class="col-md-5" data-bind="with: login">
+            <h4>Log in</h4>
+            <hr />
+            <form class="form-horizontal" role="form" method="POST" data-bind="submit: $parent.userLogin">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="lemail">Email</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="lemail" type="email" required data-bind="value: email" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="lpassword">Password</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="lpassword" type="password" required data-bind="value: password" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Log in" class="btn btn-default"/>
+                        <a href="javascript:void()" data-bind="click: $parent.showRegisterForm">or Register</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
